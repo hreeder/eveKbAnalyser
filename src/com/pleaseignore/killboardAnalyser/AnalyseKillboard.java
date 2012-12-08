@@ -19,7 +19,7 @@ public class AnalyseKillboard {
 			System.out.println("It matches");
 		}
 		
-		System.out.println("Begin actual calculations now");
+		System.out.println("\nBegin actual calculations now");
 		
 		
 	}

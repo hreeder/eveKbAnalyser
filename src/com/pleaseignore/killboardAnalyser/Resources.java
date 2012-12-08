@@ -11,6 +11,8 @@ public class Resources {
 	private String dbName;
 	private String dbUser;
 	private String dbPass;
+	private Connection conn;
+	private Statement stmt;
 	
 	
 	public Resources(String host, String name, String user, String pass) {
@@ -21,9 +23,6 @@ public class Resources {
 	}
 	
 	public String getCorpNameByID(int corpID) {
-		Connection conn;
-		Statement stmt;
-		
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
@@ -44,9 +43,6 @@ public class Resources {
 	}
 	
 	public int getCorpIdByName(String name) {
-		Connection conn;
-		Statement stmt;
-		
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
@@ -70,9 +66,7 @@ public class Resources {
 	
 	public ArrayList<Integer> getInvolvedPeopleFromKillmail(int killmailID) {
 		ArrayList<Integer> out = new ArrayList<Integer>();
-		Connection conn;
-		Statement stmt;
-		
+
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
@@ -96,6 +90,24 @@ public class Resources {
 	
 	public ArrayList<Integer> getKillmailsBetweenDates(String dateTimeStart, String dateTimeEnd) {
 		ArrayList<Integer> out = new ArrayList<Integer>();
+
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
+			stmt = conn.createStatement();
+			
+			String sql = "SELECT kll_id FROM kb3_kills WHERE kll_timestamp >= '" + dateTimeStart + "' AND kll_timestamp < '" + dateTimeEnd +"'";
+			
+			ResultSet results = stmt.executeQuery(sql);
+			
+			while (results.next()) {
+				out.add(results.getInt("ind_plt_id"));
+			}
+		} catch (Exception e) {
+			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
+			System.out.println("Error Location");
+			System.out.println("Function: getKillmailsBetweenDates");
+			System.out.println("Filename: Resources.java");
+		}
 		
 		return out;
 	}
