@@ -100,7 +100,7 @@ public class Resources {
 			ResultSet results = stmt.executeQuery(sql);
 			
 			while (results.next()) {
-				out.add(results.getInt("ind_plt_id"));
+				out.add(results.getInt("kll_id"));
 			}
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
