@@ -18,6 +18,10 @@ public class AnalyseKillboard {
 		if (dredditName.equals("Dreddit")) {
 			System.out.println("It matches");
 		}
+		
+		System.out.println("Begin actual calculations now");
+		
+		
 	}
 	
 }
