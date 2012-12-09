@@ -1,5 +1,7 @@
 package com.pleaseignore.killboardAnalyser;
 
+import java.util.ArrayList;
+
 public class AnalyseKillboard {
 
 	private static String dbHost = "gandalf.pkservers.co.uk";
@@ -21,6 +23,7 @@ public class AnalyseKillboard {
 		
 		System.out.println("\nBegin actual calculations now");
 		
+		ArrayList<Integer> kills = r.getKillmailsBetweenDates("2012-11-01 00:00:00", "2012-11-02 00:00:00");
 		
 	}
 	
