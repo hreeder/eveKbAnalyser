@@ -22,39 +22,36 @@ public class Resources {
 		dbPass = pass;
 	}
 	
-	public String getCorpByID(int corpID) {
-		String[] output = new String[1];
+	public ResultSet getCorpByID(int corpID) {		
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT crp_name, all_id FROM kb3_corps WHERE crp_id = " + corpID;
+			String sql = "SELECT * FROM kb3_corps WHERE crp_id = " + corpID;
 			ResultSet results = stmt.executeQuery(sql);
 			
-			while (results.next()) {
-				output[0] = results.getString("crp_name");
-				output[1] = results.getString("all_id");
-			}
+			return results;
+			
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
 			System.out.println("Function: getCorpByID");
 			System.out.println("Filename: Resources.java");
 		}
+		
+		
 		return null;
 	}
 	
-	public String getAllianceByID(int allID) {
+	public ResultSet getAllianceByID(int allID) {
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT all_name FROM kb3_alliances WHERE all_id = " + allID;
+			String sql = "SELECT * FROM kb3_alliances WHERE all_id = " + allID;
 			ResultSet results = stmt.executeQuery(sql);
 			
-			while (results.next()) {
-				return results.getString("all_name");
-			}
+			return results;
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -64,8 +61,26 @@ public class Resources {
 		return null;
 	}
 	
-	public ArrayList<Integer> getInvolvedPeopleFromKillmail(int killmailID) {
-		ArrayList<Integer> out = new ArrayList<Integer>();
+	public ResultSet getPlayerByID(int playerID) {
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
+			stmt = conn.createStatement();
+			
+			String sql = "SELECT * FROM kb3_pilots WHERE plt_id = " + playerID;
+			ResultSet results = stmt.executeQuery(sql);
+			
+			return results;
+		} catch (Exception e) {
+			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
+			System.out.println("Error Location");
+			System.out.println("Function: getPlayerByID");
+			System.out.println("Filename: Resources.java");
+		}
+		return null;
+	}
+	
+	public ArrayList<Player> getInvolvedPeopleFromKillmail(int killmailID) {
+		ArrayList<Player> out = new ArrayList<Player>();
 
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
@@ -76,7 +91,7 @@ public class Resources {
 			ResultSet results = stmt.executeQuery(sql);
 			
 			while (results.next()) {
-				out.add(results.getInt("ind_plt_id"));
+				out.add(new Player(getPlayerByID(results.getInt("ind_plt_id")), this));
 			}
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
@@ -88,19 +103,23 @@ public class Resources {
 		return out;
 	}
 	
-	public ArrayList<Integer> getKillmailsBetweenDates(String dateTimeStart, String dateTimeEnd) {
-		ArrayList<Integer> out = new ArrayList<Integer>();
+	public ArrayList<Kill> getKillmailsBetweenDates(String dateTimeStart, String dateTimeEnd) {
+		ArrayList<Kill> out = new ArrayList<Kill>();
 
 		try {
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
 			
-			String sql = "SELECT kll_id FROM kb3_kills WHERE kll_timestamp >= '" + dateTimeStart + "' AND kll_timestamp < '" + dateTimeEnd +"'";
+			String sql = "SELECT kll_id, kll_victim_id, kll_ship_id FROM kb3_kills WHERE kll_timestamp >= '" + dateTimeStart + "' AND kll_timestamp < '" + dateTimeEnd +"'";
 			
 			ResultSet results = stmt.executeQuery(sql);
 			
 			while (results.next()) {
-				out.add(results.getInt("kll_id"));
+				out.add(new Kill(
+						results.getInt("kll_id"),
+						results.getInt("kll_victim_id"),
+						results.getInt("kll_ship_id"),
+						this));
 			}
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
@@ -112,5 +131,29 @@ public class Resources {
 		return out;
 	}
 	
-	
+	public String getShipClassByShipID(int shipID){
+		try {
+			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
+			stmt = conn.createStatement();
+			
+			String sql = "SELECT shp_class FROM kb3_ships WHERE shp_id = " + shipID;
+			ResultSet results = stmt.executeQuery(sql);
+			
+			while (results.next()) {
+				sql = "SELECT scl_class FROM kb3_ship_classes WHERE scl_id = " + results.getInt("shp_class");
+			}
+			
+			results = stmt.executeQuery(sql);
+			
+			while (results.next()) {
+				return results.getString("scl_class");
+			}
+		} catch (Exception e) {
+			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
+			System.out.println("Error Location");
+			System.out.println("Function: getShipClassByShipID");
+			System.out.println("Filename: Resources.java");
+		}
+		return null;
+	}
 }
