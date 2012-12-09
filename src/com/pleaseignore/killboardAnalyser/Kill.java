@@ -1,6 +1,9 @@
 package com.pleaseignore.killboardAnalyser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class Kill {
 	public int killID;
@@ -12,7 +15,9 @@ public class Kill {
 		killID = _killID;
 		victim = new Player(r.getPlayerByID(victimID), r);
 		
-		System.out.println("DEBUG: New Kill Created.");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date now = new Date();
+		System.out.println(dateFormat.format(now) + " DEBUG: New Kill Created.");
 		
 		shipClass = r.getShipClassByShipID(shipID);
 		involved = r.getInvolvedPeopleFromKillmail(killID);

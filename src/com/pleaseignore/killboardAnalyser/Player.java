@@ -1,6 +1,9 @@
 package com.pleaseignore.killboardAnalyser;
 
 import java.sql.ResultSet;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class Player {
 	public String name;
@@ -17,6 +20,8 @@ public class Player {
 				playerKbID = player.getInt("plt_id");
 			}
 		} catch(Exception e) {}
-		System.out.println("DEBUG: New Player Created");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		Date now = new Date();
+		System.out.println(dateFormat.format(now) + " DEBUG: New Player Created");
 	}	
 }
