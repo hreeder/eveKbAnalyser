@@ -11,6 +11,9 @@ public class Kill {
 	public Kill(int _killID, int victimID, int shipID, Resources r) {
 		killID = _killID;
 		victim = new Player(r.getPlayerByID(victimID), r);
+		
+		System.out.println("DEBUG: New Kill Created.");
+		
 		shipClass = r.getShipClassByShipID(shipID);
 		involved = r.getInvolvedPeopleFromKillmail(killID);
 	}

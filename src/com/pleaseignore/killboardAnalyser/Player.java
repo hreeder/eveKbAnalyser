@@ -17,6 +17,6 @@ public class Player {
 				playerKbID = player.getInt("plt_id");
 			}
 		} catch(Exception e) {}
-		
+		System.out.println("DEBUG: New Player Created");
 	}	
 }
