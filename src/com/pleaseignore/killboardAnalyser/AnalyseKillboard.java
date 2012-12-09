@@ -13,17 +13,8 @@ public class AnalyseKillboard {
 		System.out.println("Sklullus' Killboard Analyser");
 		Resources r = new Resources(dbHost, dbName, dbUser, dbPass);
 		
-		int dredditID = r.getCorpIdByName("Dreddit"); 
-		System.out.println("Dreddit ID: " + dredditID);
-		String dredditName = r.getCorpNameByID(dredditID);
-		System.out.println("Returned Corp Name: " + dredditName);
-		if (dredditName.equals("Dreddit")) {
-			System.out.println("It matches");
-		}
-		
-		System.out.println("\nBegin actual calculations now");
-		
-		ArrayList<Integer> kills = r.getKillmailsBetweenDates("2012-11-01 00:00:00", "2012-11-02 00:00:00");
+		ArrayList<Integer> kills = new ArrayList<Integer>(); 
+		kills = r.getKillmailsBetweenDates("2012-11-01 00:00:00", "2012-11-02 00:00:00");
 		
 	}
 	
