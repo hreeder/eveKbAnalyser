@@ -37,6 +37,7 @@ public class Resources {
 			System.out.println("Error Location");
 			System.out.println("Function: getCorpByID");
 			System.out.println("Filename: Resources.java");
+			System.err.println(e.toString());
 		}
 		
 		
@@ -57,6 +58,7 @@ public class Resources {
 			System.out.println("Error Location");
 			System.out.println("Function: getAllianceByID");
 			System.out.println("Filename: Resources.java");
+			System.err.println(e.toString());
 		}
 		return null;
 	}
@@ -75,6 +77,7 @@ public class Resources {
 			System.out.println("Error Location");
 			System.out.println("Function: getPlayerByID");
 			System.out.println("Filename: Resources.java");
+			System.err.println(e.toString());
 		}
 		return null;
 	}
@@ -98,6 +101,7 @@ public class Resources {
 			System.out.println("Error Location");
 			System.out.println("Function: getInvolvedPeopleFromKillmail");
 			System.out.println("Filename: Resources.java");
+			System.err.println(e.toString());
 		}
 		
 		return out;
@@ -126,6 +130,7 @@ public class Resources {
 			System.out.println("Error Location");
 			System.out.println("Function: getKillmailsBetweenDates");
 			System.out.println("Filename: Resources.java");
+			System.err.println(e.toString());
 		}
 		
 		return out;
@@ -153,6 +158,7 @@ public class Resources {
 			System.out.println("Error Location");
 			System.out.println("Function: getShipClassByShipID");
 			System.out.println("Filename: Resources.java");
+			System.err.println(e.toString());
 		}
 		return null;
 	}
