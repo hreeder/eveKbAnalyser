@@ -18,8 +18,11 @@ public class AnalyseKillboard {
 		
 		for (Kill k : kills) {
 			System.out.println("Kill Details:");
-			System.out.println("Victim: " + k.victim.name);
-			System.out.println("Ship Class Loss: " + k.shipClass);
+			System.out.println("\tVictim: " + k.victim.name);
+			System.out.println("\tVictim Corp: " + k.victim.corp.name);
+			System.out.println("\tVictim Alliance: " + k.victim.corp.alliance.name);
+			System.out.println("\tShip Class: " + k.shipClass);
+			System.out.println("\tInvolved: " + k.involved.size());
 		}
 	}
 	
