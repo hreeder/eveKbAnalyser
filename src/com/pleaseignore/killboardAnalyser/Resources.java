@@ -75,7 +75,7 @@ public class Resources {
 			stmt = conn.createStatement();
 			
 			String sql = "SELECT * FROM kb3_pilots WHERE plt_id = " + playerID;
-			ResultSet results = stmt.executeQuery(sql);
+			output = stmt.executeQuery(sql);
 			
 			conn.close();
 		} catch (Exception e) {
