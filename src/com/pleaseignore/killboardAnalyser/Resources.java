@@ -11,8 +11,6 @@ public class Resources {
 	private String dbName;
 	private String dbUser;
 	private String dbPass;
-	private Connection conn;
-	private Statement stmt;
 	
 	
 	public Resources(String host, String name, String user, String pass) {
@@ -24,6 +22,8 @@ public class Resources {
 	
 	public ResultSet getCorpByID(int corpID) {		
 		try {
+			Connection conn;
+			Statement stmt;
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
 			
@@ -31,7 +31,6 @@ public class Resources {
 			ResultSet results = stmt.executeQuery(sql);
 			
 			return results;
-			
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -46,6 +45,8 @@ public class Resources {
 	
 	public ResultSet getAllianceByID(int allID) {
 		try {
+			Connection conn;
+			Statement stmt;
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
 			
@@ -65,6 +66,8 @@ public class Resources {
 	
 	public ResultSet getPlayerByID(int playerID) {
 		try {
+			Connection conn;
+			Statement stmt;
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
 			
@@ -86,6 +89,8 @@ public class Resources {
 		ArrayList<Player> out = new ArrayList<Player>();
 
 		try {
+			Connection conn;
+			Statement stmt;
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
 			
@@ -96,6 +101,7 @@ public class Resources {
 			while (results.next()) {
 				out.add(new Player(getPlayerByID(results.getInt("ind_plt_id")), this));
 			}
+			conn.close();
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -111,6 +117,8 @@ public class Resources {
 		ArrayList<Kill> out = new ArrayList<Kill>();
 
 		try {
+			Connection conn;
+			Statement stmt;
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
 			
@@ -125,6 +133,7 @@ public class Resources {
 						results.getInt("kll_ship_id"),
 						this));
 			}
+			conn.close();
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -138,6 +147,8 @@ public class Resources {
 	
 	public String getShipClassByShipID(int shipID){
 		try {
+			Connection conn;
+			Statement stmt;
 			conn = DriverManager.getConnection("jdbc:mysql://"+dbHost+"/"+dbName, dbUser, dbPass);
 			stmt = conn.createStatement();
 			
