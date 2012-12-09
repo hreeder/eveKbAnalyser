@@ -1,6 +1,9 @@
 package com.pleaseignore.killboardAnalyser;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class AnalyseKillboard {
 
@@ -11,10 +14,15 @@ public class AnalyseKillboard {
 	
 	public static void main(String[] args) {
 		System.out.println("Sklullus' Killboard Analyser");
+		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		
+		Date start = new Date();
+		System.out.println("Run Start: " + dateFormat.format(start));
+		
 		Resources r = new Resources(dbHost, dbName, dbUser, dbPass);
 		
 		ArrayList<Kill> kills; 
-		kills = r.getKillmailsBetweenDates("2012-11-01 00:00:00", "2012-11-01 12:00:00");
+		kills = r.getKillmailsBetweenDates("2012-11-01 00:00:00", "2012-12-01 00:00:00");
 		
 		for (Kill k : kills) {
 			System.out.println("Kill Details:");
@@ -24,6 +32,11 @@ public class AnalyseKillboard {
 			System.out.println("\tShip Class: " + k.shipClass);
 			System.out.println("\tInvolved: " + k.involved.size());
 		}
+		
+		Date end = new Date();
+		System.out.println("Run Start: " + dateFormat.format(end));
+		long difference = end.getTime() - start.getTime();
+		System.out.println("Time Taken: " + (difference/1000)/60 + " minutes.");
 	}
 	
 }
