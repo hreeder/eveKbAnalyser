@@ -20,7 +20,8 @@ public class Resources {
 		dbPass = pass;
 	}
 	
-	public ResultSet getCorpByID(int corpID) {		
+	public ResultSet getCorpByID(int corpID) {
+		ResultSet output = null;
 		try {
 			Connection conn;
 			Statement stmt;
@@ -28,9 +29,9 @@ public class Resources {
 			stmt = conn.createStatement();
 			
 			String sql = "SELECT * FROM kb3_corps WHERE crp_id = " + corpID;
-			ResultSet results = stmt.executeQuery(sql);
+			output = stmt.executeQuery(sql);
 			
-			return results;
+			conn.close();
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -40,10 +41,11 @@ public class Resources {
 		}
 		
 		
-		return null;
+		return output;
 	}
 	
 	public ResultSet getAllianceByID(int allID) {
+		ResultSet output = null;
 		try {
 			Connection conn;
 			Statement stmt;
@@ -51,9 +53,9 @@ public class Resources {
 			stmt = conn.createStatement();
 			
 			String sql = "SELECT * FROM kb3_alliances WHERE all_id = " + allID;
-			ResultSet results = stmt.executeQuery(sql);
+			output = stmt.executeQuery(sql);
 			
-			return results;
+			conn.close();
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -61,10 +63,11 @@ public class Resources {
 			System.out.println("Filename: Resources.java");
 			System.err.println(e.toString());
 		}
-		return null;
+		return output;
 	}
 	
 	public ResultSet getPlayerByID(int playerID) {
+		ResultSet output = null;
 		try {
 			Connection conn;
 			Statement stmt;
@@ -74,7 +77,7 @@ public class Resources {
 			String sql = "SELECT * FROM kb3_pilots WHERE plt_id = " + playerID;
 			ResultSet results = stmt.executeQuery(sql);
 			
-			return results;
+			conn.close();
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -82,7 +85,7 @@ public class Resources {
 			System.out.println("Filename: Resources.java");
 			System.err.println(e.toString());
 		}
-		return null;
+		return output;
 	}
 	
 	public ArrayList<Player> getInvolvedPeopleFromKillmail(int killmailID) {
@@ -146,6 +149,7 @@ public class Resources {
 	}
 	
 	public String getShipClassByShipID(int shipID){
+		String output = null;
 		try {
 			Connection conn;
 			Statement stmt;
@@ -162,8 +166,10 @@ public class Resources {
 			results = stmt.executeQuery(sql);
 			
 			while (results.next()) {
-				return results.getString("scl_class");
+				output = results.getString("scl_class");
 			}
+			
+			conn.close();
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -171,6 +177,6 @@ public class Resources {
 			System.out.println("Filename: Resources.java");
 			System.err.println(e.toString());
 		}
-		return null;
+		return output;
 	}
 }
