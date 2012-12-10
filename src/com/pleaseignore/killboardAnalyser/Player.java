@@ -12,7 +12,7 @@ public class Player {
 		
 	public Player(String _name, int corpID, int ccpID, int kbID, Resources r) {
 		name = _name;
-		corp = new Corporation(r.getCorpByID(corpID), r);
+		corp = r.getCorpByID(corpID);
 		playerCCPID = ccpID;
 		playerKbID = kbID;
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");

@@ -20,8 +20,8 @@ public class Resources {
 		dbPass = pass;
 	}
 	
-	public ResultSet getCorpByID(int corpID) {
-		ResultSet output = null;
+	public Corporation getCorpByID(int corpID) {
+		Corporation output = null;
 		try {
 			Connection conn;
 			Statement stmt;
@@ -31,8 +31,16 @@ public class Resources {
 			String sql = "SELECT * FROM kb3_corps WHERE crp_id = " + corpID;
 			ResultSet results = stmt.executeQuery(sql);
 			
+			while (results.next()) {
+				output = new Corporation(
+						results.getString("crp_name"),
+						results.getInt("crp_id"),
+						results.getInt("crp_external_id"),
+						results.getInt("crp_all_id"),
+						this);
+			}
+			
 			conn.close();
-			return results;
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
