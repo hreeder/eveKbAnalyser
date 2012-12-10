@@ -22,7 +22,7 @@ public class AnalyseKillboard {
 		Resources r = new Resources(dbHost, dbName, dbUser, dbPass);
 		
 		ArrayList<Kill> kills; 
-		kills = r.getKillmailsBetweenDates("2012-11-01 00:00:00", "2012-11-01 01:00:00");
+		kills = r.getKillmailsBetweenDates("2012-11-01 00:00:00", "2012-11-01 00:10:00");
 		
 		for (Kill k : kills) {
 			System.out.println("Kill Details:");
