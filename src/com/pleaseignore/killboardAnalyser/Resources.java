@@ -29,9 +29,10 @@ public class Resources {
 			stmt = conn.createStatement();
 			
 			String sql = "SELECT * FROM kb3_corps WHERE crp_id = " + corpID;
-			output = stmt.executeQuery(sql);
+			ResultSet results = stmt.executeQuery(sql);
 			
 			conn.close();
+			return results;
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -53,9 +54,10 @@ public class Resources {
 			stmt = conn.createStatement();
 			
 			String sql = "SELECT * FROM kb3_alliances WHERE all_id = " + allID;
-			output = stmt.executeQuery(sql);
+			ResultSet results = stmt.executeQuery(sql);
 			
 			conn.close();
+			return results;
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -75,9 +77,10 @@ public class Resources {
 			stmt = conn.createStatement();
 			
 			String sql = "SELECT * FROM kb3_pilots WHERE plt_id = " + playerID;
-			output = stmt.executeQuery(sql);
+			ResultSet results = stmt.executeQuery(sql);
 			
 			conn.close();
+			return results;
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
