@@ -15,8 +15,8 @@ public class Player {
 		corp = r.getCorpByID(corpID);
 		playerCCPID = ccpID;
 		playerKbID = kbID;
-		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+		/*DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date now = new Date();
-		System.out.println(dateFormat.format(now) + " DEBUG: New Player Created");
+		System.out.println(dateFormat.format(now) + " DEBUG: New Player Created");*/
 	}	
 }
