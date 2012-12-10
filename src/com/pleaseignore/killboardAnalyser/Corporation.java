@@ -19,6 +19,6 @@ public class Corporation {
 			}
 		} catch (Exception e) {}
 		
-		alliance = new Alliance(r.getAllianceByID(allianceKbID));
+		alliance = r.getAllianceByID(allianceKbID);
 	}
 }

@@ -45,8 +45,8 @@ public class Resources {
 		return output;
 	}
 	
-	public ResultSet getAllianceByID(int allID) {
-		ResultSet output = null;
+	public Alliance getAllianceByID(int allID) {
+		Alliance output = null;
 		try {
 			Connection conn;
 			Statement stmt;
@@ -56,8 +56,14 @@ public class Resources {
 			String sql = "SELECT * FROM kb3_alliances WHERE all_id = " + allID;
 			ResultSet results = stmt.executeQuery(sql);
 			
+			while (results.next()) {
+				output = new Alliance(
+						results.getString("all_name"),
+						results.getInt("all_external_id"),
+						results.getInt("all_id"));
+			}
+			
 			conn.close();
-			return results;
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");

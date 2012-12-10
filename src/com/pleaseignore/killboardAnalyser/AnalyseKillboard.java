@@ -22,7 +22,7 @@ public class AnalyseKillboard {
 		Resources r = new Resources(dbHost, dbName, dbUser, dbPass);
 		
 		ArrayList<Kill> kills; 
-		kills = r.getKillmailsBetweenDates("2012-11-01 00:00:00", "2012-11-01 00:10:00");
+		kills = r.getKillmailsBetweenDates("2012-11-01 00:00:00", "2012-11-01 00:30:00");
 		
 		for (Kill k : kills) {
 			System.out.println("Kill Details:");
@@ -34,9 +34,10 @@ public class AnalyseKillboard {
 		}
 		
 		Date end = new Date();
-		System.out.println("Run Start: " + dateFormat.format(end));
+		System.out.println("Run End: " + dateFormat.format(end));
 		long difference = end.getTime() - start.getTime();
 		System.out.println("Time Taken: " + (difference/1000)/60 + " minutes.");
+		System.out.println("Number of kills: " + kills.size() + ".");
 	}
 	
 }
