@@ -13,7 +13,7 @@ public class Kill {
 	
 	public Kill(int _killID, int victimID, int shipID, Resources r) {
 		killID = _killID;
-		victim = new Player(r.getPlayerByID(victimID), r);
+		victim = r.getPlayerByID(victimID);
 		
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		Date now = new Date();

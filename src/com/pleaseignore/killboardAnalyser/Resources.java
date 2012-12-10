@@ -68,8 +68,8 @@ public class Resources {
 		return output;
 	}
 	
-	public ResultSet getPlayerByID(int playerID) {
-		ResultSet output = null;
+	public Player getPlayerByID(int playerID) {
+		Player output = null;
 		try {
 			Connection conn;
 			Statement stmt;
@@ -79,8 +79,16 @@ public class Resources {
 			String sql = "SELECT * FROM kb3_pilots WHERE plt_id = " + playerID;
 			ResultSet results = stmt.executeQuery(sql);
 			
+			while (results.next()) {
+				output = new Player(
+						results.getString("plt_name"),
+						results.getInt("plt_crp_id"),
+						results.getInt("plt_externalid"),
+						results.getInt("plt_id"),
+						this);
+			}
+						
 			conn.close();
-			return results;
 		} catch (Exception e) {
 			System.out.println("OH GOD SOMETHING BAD HAPPENED.");
 			System.out.println("Error Location");
@@ -105,7 +113,7 @@ public class Resources {
 			ResultSet results = stmt.executeQuery(sql);
 			
 			while (results.next()) {
-				out.add(new Player(getPlayerByID(results.getInt("ind_plt_id")), this));
+				out.add(getPlayerByID(results.getInt("ind_plt_id")));
 			}
 			conn.close();
 		} catch (Exception e) {
