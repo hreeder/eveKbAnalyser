@@ -11,7 +11,7 @@ public class AnalyseKillboard {
 	private static String dbHost = "gandalf.pkservers.co.uk";
 	private static String dbName = "pleaseignore";
 	private static String dbUser = "pleaseignore";
-	private static String dbPass = "############";
+	private static String dbPass = "testalliance";
 	
 	public static void main(String[] args) {	
 		System.out.println("Sklullus' Killboard Analyser");
