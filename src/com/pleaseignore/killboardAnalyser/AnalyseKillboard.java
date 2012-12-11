@@ -13,7 +13,7 @@ public class AnalyseKillboard {
 	private static String dbUser = "pleaseignore";
 	private static String dbPass = "testalliance";
 	
-	public static void main(String[] args) {
+	public static void main(String[] args) {	
 		System.out.println("Sklullus' Killboard Analyser");
 		DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
 		
@@ -53,27 +53,35 @@ public class AnalyseKillboard {
 		
 		// What we're going to do here is look at each corp and add up how many kills their players have been on in total
 		// I'm not 100% sure if this is a correct metric to look at, but what the hey, it's something!
+		// I'm also going to look at average kills - Number of total kills from the corp members / number of members
 		HashMap<Integer, Integer> CorpTotalKMs = new HashMap<Integer, Integer>();
+		HashMap<Integer, Double> CorpAverageKMs = new HashMap<Integer, Double>();
 		
 		for (int c : outer.keySet()) {
-			String alliance = r.getCorpByID(c).alliance.name;
+			Corporation corp = r.getCorpByID(c);
+			String alliance = corp.alliance.name;
 			if (alliance.equals("Test Alliance Please Ignore") || alliance.equals("Test Friends Please Ignore")) {
 				int rollingTotal = 0;
 				for (int p : outer.get(c).keySet()) {
-					rollingTotal += outer.get(c).get(p);
+					rollingTotal = rollingTotal + outer.get(c).get(p);
 				}
 				CorpTotalKMs.put(c, rollingTotal);
-			}
-		}
-		
-		HashMap<Integer, Integer> CorpAverageKMs = new HashMap<Integer, Integer>();
-		
-		for (int c : outer.keySet()) {
-			String alliance = r.getCorpByID(c).alliance.name;
-			if (alliance.equals("Test Alliance Please Ignore") || alliance.equals("Test Friends Please Ignore")) {
 				
+				XmlHandler corpSheet = new XmlHandler("https://api.eveonline.com/corp/CorporationSheet.xml.aspx?corporationID=" + corp.corpCCPID);
+				int corpMembers = Integer.parseInt(corpSheet.getProperty("memberCount"));
+				CorpAverageKMs.put(c, (double)rollingTotal/(double)corpMembers);
 			}
 		}
+		
+		for (int i : CorpTotalKMs.keySet()) {
+			Corporation corp = r.getCorpByID(i);
+			System.out.println("Corporation: " + corp.name);
+			System.out.println("\tAlliance: " + corp.alliance.name);
+			System.out.println("\tTotal Kills: " + CorpTotalKMs.get(i));
+			System.out.println("\tAverage Kills: " + CorpAverageKMs.get(i));
+		}
+		
+
 		
 		Date end = new Date();
 		System.out.println("Run End: " + dateFormat.format(end));
